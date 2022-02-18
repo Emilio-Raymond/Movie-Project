@@ -19,6 +19,10 @@ nav {
 .movie-container {
     display: flex;
     border: 5px solid grey;
+    max-height: 400px;
+}
+#img-div {
+    flex-basis: 25%;
 }
 img{
     width: 100%;
@@ -29,11 +33,12 @@ img{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    flex-basis: 30%;
+    flex-basis: 25%;
 }
 #movie-info p {
     margin: 6px 0 ;
 }
 #plot {
     padding: 5px 10px;
+    flex-basis: 50%;
 }
