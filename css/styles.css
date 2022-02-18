@@ -1,0 +1,39 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    background-image: url("https://pngimg.com/uploads/popcorn/popcorn_PNG61.png");
+    background-color: black;
+}
+nav {
+    background-color: white;
+    padding: 1em;
+    margin-bottom: 1em;
+}
+.container {
+    background-color: white;
+    margin: auto auto;
+    width: 75%;
+}
+.movie-container {
+    display: flex;
+    border: 5px solid grey;
+}
+img{
+    width: 100%;
+    height: 100%;
+}
+#movie-info {
+    padding: 1px 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-basis: 30%;
+}
+#movie-info p {
+    margin: 6px 0 ;
+}
+#plot {
+    padding: 5px 10px;
+}
