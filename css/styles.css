@@ -4,7 +4,7 @@
 }
 body {
     background-image: url("https://pngimg.com/uploads/popcorn/popcorn_PNG61.png");
-    background-color: black;
+    background:linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(212,134,134,1) 25%, rgba(255,0,0,1) 50%, rgba(212,134,134,1) 75%, rgba(255,255,255,1) 100%);
 }
 nav {
     background-color: white;
@@ -41,4 +41,24 @@ img{
 #plot {
     padding: 5px 10px;
     flex-basis: 50%;
+}
+.create-movie-form h1 {
+    color: white;
+    text-align: center;
+}
+.create-movie-form {
+    position: absolute;
+    top: 25%;
+    left: 25%;
+    background-color: #1495bd;
+    width: 50vw;
+}
+form {
+    display: flex;
+    margin: auto auto;
+    flex-direction: column;
+    width: 50%;
+}
+form input, form select {
+    margin: 1em 0;
 }

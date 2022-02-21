@@ -1,0 +1,179 @@
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style id="compiled-css" type="text/css">
+    body {
+      position: relative;
+      background-color: black;
+    }
+    .cone1 {
+      position: absolute;
+      bottom: -30px;
+      left: 50px;
+      height: 0;
+      width: 0;
+      border-left: 30px solid transparent;
+      border-right: 30px solid transparent;
+      border-top: 200px solid rgba(240, 243, 243, 0.6);
+      -moz-border-radius: 50%;
+      -webkit-border-radius: 50%;
+      border-radius: 50%;
+      transform: skew(0deg);
+      animation: cone1Animation 3s 0s infinite;
+    }
+    .cone2 {
+      position: absolute;
+      bottom: -30px;
+      left: 100px;
+      height: 0;
+      width: 0;
+      border-left: 30px solid transparent;
+      border-right: 30px solid transparent;
+      border-top: 200px solid rgba(240, 243, 243, 0.6);
+      -moz-border-radius: 50%;
+      -webkit-border-radius: 50%;
+      border-radius: 50%;
+      transform: skew(0deg);
+      animation: cone2Animation 3s 0s infinite;
+
+    }
+
+    @keyframes cone2Animation {
+      0%{
+        transform: skew(10deg);
+      }
+      5% {
+        transform: skew(13deg);
+      }
+      10% {
+        transform: skew(16deg);
+      }
+      15% {
+        transform: skew(19deg);
+      }
+      20% {
+        transform: skew(22deg);
+      }
+      25% {
+        transform: skew(25deg);
+      }
+      30% {
+        transform: skew(28deg);
+      }
+      35% {
+        transform: skew(31deg);
+      }
+      40% {
+        transform: skew(34deg);
+      }
+      45% {
+        transform: skew(37deg);
+      }
+      50% {
+        transform: skew(40deg);
+      }
+      55% {
+        transform: skew(37deg);
+      }
+      60% {
+        transform: skew(34deg);
+      }
+      65% {
+        transform: skew(31deg);
+      }
+      70% {
+        transform: skew(28deg);
+      }
+      75% {
+        transform: skew(25deg);
+      }
+      80% {
+        transform: skew(22deg);
+      }
+      85% {
+        transform: skew(19deg);
+      }
+      90% {
+        transform: skew(16deg);
+      }
+      95% {
+        transform: skew(13deg);
+      }
+      100%{
+        transform: skew(10deg);
+      }
+    }
+    @keyframes cone1Animation {
+      0%{
+        transform: skew(-10deg);
+      }
+      5% {
+        transform: skew(-13deg);
+      }
+      10% {
+        transform: skew(-16deg);
+      }
+      15% {
+        transform: skew(-19deg);
+      }
+      20% {
+        transform: skew(-22deg);
+      }
+      25% {
+        transform: skew(-25deg);
+      }
+      30% {
+        transform: skew(-28deg);
+      }
+      35% {
+        transform: skew(-31deg);
+      }
+      40% {
+        transform: skew(-34deg);
+      }
+      45% {
+        transform: skew(-37deg);
+      }
+      50% {
+        transform: skew(-40deg);
+      }
+      55% {
+        transform: skew(-37deg);
+      }
+      60% {
+        transform: skew(-34deg);
+      }
+      65% {
+        transform: skew(-31deg);
+      }
+      70% {
+        transform: skew(-28deg);
+      }
+      75% {
+        transform: skew(-25deg);
+      }
+      80% {
+        transform: skew(-22deg);
+      }
+      85% {
+        transform: skew(-19deg);
+      }
+      90% {
+        transform: skew(-16deg);
+      }
+      95% {
+        transform: skew(-13deg);
+      }
+      100%{
+        transform: skew(-10deg);
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="cone1"></div>
+<div class="cone2"></div>
+<script>
+</script>
+</body>
+</html>
