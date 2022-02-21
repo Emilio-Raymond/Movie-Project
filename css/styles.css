@@ -3,23 +3,23 @@
     padding: 0;
 }
 body {
-    background-image: url("https://pngimg.com/uploads/popcorn/popcorn_PNG61.png");
-    background:linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(212,134,134,1) 25%, rgba(255,0,0,1) 50%, rgba(212,134,134,1) 75%, rgba(255,255,255,1) 100%);
+    background: url("https://pngimg.com/uploads/popcorn/popcorn_PNG61.png") , linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(212,134,134,1) 25%, rgba(255,0,0,1) 50%, rgba(212,134,134,1) 75%, rgba(255,255,255,1) 100%);
 }
 nav {
-    background-color: white;
+    background-color: #C8BFC7;
     padding: 1em;
     margin-bottom: 1em;
 }
 .container {
-    background-color: white;
+    background-color: transparent;
     margin: auto auto;
     width: 75%;
 }
 .movie-container {
     display: flex;
-    border: 5px solid grey;
     max-height: 400px;
+    margin: .5em 0;
+    background-color: #C8BFC7;
 }
 #img-div {
     flex-basis: 25%;
@@ -45,6 +45,7 @@ img{
 .create-movie-form h1 {
     color: white;
     text-align: center;
+    margin-top: 1em;
 }
 .create-movie-form {
     position: absolute;
@@ -52,6 +53,7 @@ img{
     left: 25%;
     background-color: #1495bd;
     width: 50vw;
+    /*display: none;*/
 }
 form {
     display: flex;
@@ -61,4 +63,8 @@ form {
 }
 form input, form select {
     margin: 1em 0;
+}
+form button {
+    width: 25%;
+    margin: 0 auto 1em;
 }

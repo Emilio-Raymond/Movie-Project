@@ -1,20 +1,25 @@
 "use strict;"
 const BASE = 'https://windy-brawny-lumber.glitch.me/movies'
-$.get(BASE, function () {
-    $(`#movie-insert`).html('Get Your POPCORN READY!')
-}).done(function (results) {
-    console.log(results)
-    $(`#movie-insert`).html('')
-    results.forEach(function (movie) {
-       console.log(movie.title)
-        if (movie.title === undefined) {
 
-            deleteMovie(movie.id)
-        }
-        const HTML = creatingHtml(movie.poster, movie.title, movie.year, 'war' , movie.genre, movie.plot)
-        $(`#movie-insert`).append(HTML)
+function getAllMovies() {
+    $.get(BASE, function () {
+        $(`#movie-insert`).html('Get Your POPCORN READY!')
+    }).done(function (results) {
+        console.log(results)
+        $(`#movie-insert`).html('')
+        results.forEach(function (movie) {
+            console.log(movie.title)
+            if (movie.title === undefined) {
+
+                deleteMovie(movie.id)
+            }
+            const HTML = creatingHtml(movie.poster, movie.title, movie.year, 'war', movie.genre, movie.plot)
+            $(`#movie-insert`).append(HTML)
+        })
     })
-})
+}
+getAllMovies()
+
 
 function creatingHtml(imgSrc, title, yearRel, runTime, genre, plotDes) {
     //language=HTML
@@ -41,3 +46,12 @@ function deleteMovie(id) {
         console.log("deletesuccess")
     })
 }
+
+function addMovie(newMovie) {
+    $.post({url: BASE, newMovie}).done(function () {
+        getAllMovies()
+    })
+}
+$('#createMovie').click(function () {
+    
+})
