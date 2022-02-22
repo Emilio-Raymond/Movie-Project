@@ -1,5 +1,6 @@
 "use strict;"
-function creatingHtml(imgSrc, title, yearRel, runTime, genre, plotDes) {
+
+function creatingHtml(imgSrc, title, yearRel, runTime, genre, plotDes, id) {
     //language=HTML
     return `
         <div id="movie" class="movie-container">
@@ -14,7 +15,12 @@ function creatingHtml(imgSrc, title, yearRel, runTime, genre, plotDes) {
                 <p>Genre: ${genre}</p>
             </div>
             <div id="plot">
-                <p>${plotDes}</p>
+                    <p>${plotDes}</p>
+                <div id="links">
+                    <a href="">Add a new movie</a>
+                    <a href="">Edit this movie</a>
+                    <a id="${id}" href="">Delete this movie</a>
+                </div>
             </div>
         </div>`
 }
@@ -27,5 +33,5 @@ function createMovie() {
 $('#createMovie').click(function (e) {
     e.preventDefault();
     //addMovie(createMovie())
-   getMovieData(createMovie())
+    getMovieData(createMovie())
 })
