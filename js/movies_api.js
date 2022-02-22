@@ -12,13 +12,19 @@ function getAllMovies() {
             //
             //         deleteMovie(movie.id)
             //     }
-            const HTML = creatingHtml(movie.poster, movie.title)
+            const HTML = creatingHtml(movie.poster, movie.title, movie.id)
             $(`#movie-insert`).append(HTML)
         })
     })
 }
 
 getAllMovies()
+
+function getSelectedMovie(id){
+    $.get(`${BASE}/${id}`).done((results) => {
+        console.log(results)
+    })
+}
 
 function addMovie(newMovie) {
     console.log(newMovie);
