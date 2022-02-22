@@ -23,6 +23,7 @@ getAllMovies()
 function getSelectedMovie(id){
     $.get(`${BASE}/${id}`).done((results) => {
         console.log(results)
+       $('#movie-info').html(singleMovieModal(results.actors, results.dateReleased, results.director, results.genre, results.imdb, results.plot, results.poster, results.rating, results.rotten, results.runtime, results.title))
     })
 }
 

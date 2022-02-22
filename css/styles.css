@@ -91,6 +91,15 @@ form button {
     margin: 0 auto 1em;
 }
 
+#movie-info {
+    background-color: #1495bd;
+    position: absolute;
+    top: 25%;
+    left: 15%;
+    width: 75%;
+    height: 90%;
+}
+
 .hidden {
     display: none;
 }

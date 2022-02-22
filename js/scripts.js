@@ -11,6 +11,11 @@ function creatingHtml(imgSrc, title, id) {
         </div>`
 }
 
+function singleMovieModal(actors, date, director, genre, imdb, plot, poster, rating, rotten, runtime, title){
+    //language=HTML
+    return `<p>${title}</p>`
+}
+
 function createMovie() {
     const [title] = $('form').children()
     return title.value
