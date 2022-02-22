@@ -13,16 +13,16 @@ nav {
 .container {
     background-color: transparent;
     margin: auto auto;
-    width: 75%;
+    width: 60%;
 }
 .movie-container {
     display: flex;
-    max-height: 400px;
+    max-height: 200px;
     margin: .5em 0;
     background-color: #C8BFC7;
 }
 #img-div {
-    flex-basis: 25%;
+    flex-basis: 10%;
 }
 img{
     width: 100%;
@@ -41,6 +41,13 @@ img{
 #plot {
     padding: 5px 10px;
     flex-basis: 50%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+#plot p:nth-of-type(1) {
+    text-align: center;
+    margin-bottom: 1em;
 }
 .create-movie-form h1 {
     color: white;
@@ -67,4 +74,7 @@ form input, form select {
 form button {
     width: 25%;
     margin: 0 auto 1em;
+}
+.hidden {
+    display: none;
 }
