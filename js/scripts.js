@@ -14,7 +14,6 @@ function creatingHtml(imgSrc, title, yearRel, runTime, genre, plotDes) {
                 <p>Genre: ${genre}</p>
             </div>
             <div id="plot">
-                <p>Plot: </p>
                 <p>${plotDes}</p>
             </div>
         </div>`

@@ -1,33 +1,53 @@
+@font-face {
+    font-family: "blackWidow";
+    src: url("/css/fonts/blackWidow/widow.ttf");
+}
+@font-face {
+    font-family: "glass";
+    src: url("/css/fonts/glass/glass.ttf");
+}
 * {
     margin: 0;
     padding: 0;
 }
+
 body {
-    background: url("https://pngimg.com/uploads/popcorn/popcorn_PNG61.png") , linear-gradient(0deg, rgba(252,153,153,1) 0%, rgba(255,55,55,1) 25%, rgba(255,0,0,1) 50%, rgba(255,55,55,1) 75%, rgba(252,153,153,1) 100%);
+    font-size: 13px;
+    font-family: glass, sans-serif;
+    background: url("https://pngimg.com/uploads/popcorn/popcorn_PNG61.png"), linear-gradient(0deg, rgba(252, 153, 153, 1) 0%, rgba(255, 55, 55, 1) 25%, rgba(255, 0, 0, 1) 50%, rgba(255, 55, 55, 1) 75%, rgba(252, 153, 153, 1) 100%);
 }
+
 nav {
+    font-family: blackWidow, sans-serif;
     background-color: #C8BFC7;
-    padding: 1em;
+    padding: .5em;
     margin-bottom: 1em;
+    font-size: 30px;
+    text-align: center;
 }
+
 .container {
     background-color: transparent;
     margin: auto auto;
-    width: 60%;
+    width: 75%;
 }
+
 .movie-container {
     display: flex;
     max-height: 200px;
     margin: .5em 0;
     background-color: #C8BFC7;
 }
+
 #img-div {
-    flex-basis: 10%;
+    flex-basis: 15%;
 }
-img{
+
+img {
     width: 100%;
     height: 100%;
 }
+
 #movie-info {
     padding: 1px 10px;
     display: flex;
@@ -35,25 +55,28 @@ img{
     justify-content: center;
     flex-basis: 25%;
 }
+
 #movie-info p {
-    margin: 6px 0 ;
+    margin: 6px 0;
 }
+
 #plot {
     padding: 5px 10px;
-    flex-basis: 50%;
+    flex-basis: 60%;
     display: flex;
     justify-content: center;
     flex-direction: column;
 }
-#plot p:nth-of-type(1) {
-    text-align: center;
-    margin-bottom: 1em;
+#plot p{
+    line-height: 1.4em;
 }
+
 .create-movie-form h1 {
     color: white;
     text-align: center;
     margin-top: 1em;
 }
+
 .create-movie-form {
     position: absolute;
     top: 25%;
@@ -62,19 +85,23 @@ img{
     width: 50vw;
     /*display: none;*/
 }
+
 form {
     display: flex;
     margin: auto auto;
     flex-direction: column;
     width: 50%;
 }
+
 form input, form select {
     margin: 1em 0;
 }
+
 form button {
     width: 25%;
     margin: 0 auto 1em;
 }
+
 .hidden {
     display: none;
 }
