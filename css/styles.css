@@ -64,13 +64,15 @@ img {
     padding: 5px 10px;
     flex-basis: 60%;
     display: flex;
-    justify-content: center;
     flex-direction: column;
+    justify-content: center;
 }
 #plot p{
     line-height: 1.4em;
 }
-
+#links{
+    align-self: flex-end;
+}
 .create-movie-form h1 {
     color: white;
     text-align: center;
