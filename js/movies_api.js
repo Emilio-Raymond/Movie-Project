@@ -12,13 +12,20 @@ function getAllMovies() {
             //
             //         deleteMovie(movie.id)
             //     }
-            const HTML = creatingHtml(movie.poster, movie.title, movie.year, 'war', movie.genre, movie.plot)
+            const HTML = creatingHtml(movie.poster, movie.title, movie.id)
             $(`#movie-insert`).append(HTML)
         })
     })
 }
 
 getAllMovies()
+
+function getSelectedMovie(id){
+    $.get(`${BASE}/${id}`).done((results) => {
+        console.log(results)
+       $('#movie-info').html(singleMovieModal(results.actors, results.dateReleased, results.director, results.genre, results.imdb, results.plot, results.poster, results.rating, results.rotten, results.runtime, results.title))
+    })
+}
 
 function addMovie(newMovie) {
     console.log(newMovie);
