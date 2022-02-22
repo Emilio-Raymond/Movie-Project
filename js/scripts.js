@@ -8,16 +8,16 @@ function getAllMovies() {
         console.log(results)
         $(`#movie-insert`).html('')
         results.forEach(function (movie) {
-            console.log(movie.title)
-            if (movie.title === undefined) {
-
-                deleteMovie(movie.id)
-            }
+            //     if (movie.title === undefined) {
+            //
+            //         deleteMovie(movie.id)
+            //     }
             const HTML = creatingHtml(movie.poster, movie.title, movie.year, 'war', movie.genre, movie.plot)
             $(`#movie-insert`).append(HTML)
         })
     })
 }
+
 getAllMovies()
 
 
@@ -47,11 +47,26 @@ function deleteMovie(id) {
     })
 }
 
+function createMovie() {
+    const [title, year, genre, director, rating] = $('form').children()
+    return {
+        title: title.value,
+        yearReleased: year.value,
+        genre: genre.value,
+        director: director.value,
+        rating: rating.value,
+    }
+
+}
+
 function addMovie(newMovie) {
-    $.post({url: BASE, newMovie}).done(function () {
+    console.log(newMovie);
+    $.post(BASE, newMovie).done(function () {
         getAllMovies()
     })
 }
-$('#createMovie').click(function () {
-    
+
+$('#createMovie').click(function (e) {
+    e.preventDefault();
+    addMovie(createMovie())
 })
