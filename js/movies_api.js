@@ -12,7 +12,7 @@ function getAllMovies() {
             //
             //         deleteMovie(movie.id)
             //     }
-            const HTML = creatingHtml(movie.poster, movie.title, movie.year, 'war', movie.genre, movie.plot)
+            const HTML = creatingHtml(movie.poster, movie.title)
             $(`#movie-insert`).append(HTML)
         })
     })
