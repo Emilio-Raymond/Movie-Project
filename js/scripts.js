@@ -15,24 +15,33 @@ function creatingHtml(imgSrc, title, id) {
         </div>`
 }
 
-function singleMovieModal(actors, date, director, genre, imdb, plot, poster, rating, rotten, runtime, title) {
+function singleMovieModal(actors, date, director, genre, imdb, plot, poster, rating, rotten, runtime, title, id) {
     //language=HTML
     return `
-        <img src="${poster}" alt="${title} Movie Poster">
-        <div>
-            <p>${title}</p>
-            <p>${date}</p>
-            <p>${director}</p>
-            <p>${genre}</p>
-            <p>${imdb}</p>
-            <p>${plot}</p>
-            <p>IMDB: ${rating}</p>
-            <p>Tomatoes: ${rotten}</p>
-            <p>${runtime}</p>
-        </div>
-        <div id="links">
-            <a href="">Edit Movie</a>
-            <a href="">Delete Movie</a>
+        <div id="movie-info-insert" data-id="${id}">
+            <div id="movie-info-top">
+                <img src="${poster}" alt="${title} Movie Poster">
+                <div>
+                    <div id="tr">
+                        <p>${title}</p>
+                        <p>${rating}</p>
+                    </div>
+                    <p>Director - ${director}</p>
+                    <p>Actors - ${actors}</p>
+                    <p>Date Released - ${date}</p>
+                    <p>Genre - ${genre}</p>
+                    <p>IMDB Rating - ${imdb}</p>
+                    <p>Rotten Tomatoes Rating - ${rotten}</p>
+                    <p>Run Time - ${runtime}</p>
+                </div>
+            </div>
+            <div id="movie-info-plot">
+                <p>${plot}</p>
+            </div>
+            <div id="links">
+                <a href="" id="edit">Edit Movie</a>
+                <a href="" id="delete">Delete Movie</a>
+            </div>
         </div>`
 }
 
@@ -51,6 +60,7 @@ $('#add-movie-modal').click(function (e) {
 $('#movie-insert').click(function (event) {
     const imgId = event.target.getAttribute('data-id');
     getSelectedMovie(imgId);
+    window.scrollTo({top: 0, behavior: "smooth"})
 })
 
 $('#createMovie').click(function (e) {
@@ -79,3 +89,16 @@ $(document).on('keydown', function (e) {
 $('#close-form').click(function () {
     closeModal()
 })
+
+$(`#movie-info`).click(function (e) {
+    e.preventDefault()
+    if (e.target.getAttribute('id') === 'edit'){
+        console.log("open edit modal")
+    }
+    if (e.target.getAttribute('id') === 'delete'){
+        deleteMovie($(this).children().attr('data-id'))
+    }
+})
+
+
+

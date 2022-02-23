@@ -22,7 +22,7 @@ getAllMovies()
 function getSelectedMovie(id) {
     $.get(`${BASE}/${id}`).done((results) => {
         console.log(results)
-        $('#movie-info').html(singleMovieModal(results.actors, results.dateReleased, results.director, results.genre, results.imdb, results.plot, results.poster, results.rating, results.rotten, results.runtime, results.title)).removeClass('hidden')
+        $('#movie-info').html(singleMovieModal(results.actors, results.dateReleased, results.director, results.genre, results.imdb, results.plot, results.poster, results.rating, results.rotten, results.runtime, results.title, results.id)).removeClass('hidden')
         $('.overlay').removeClass('hidden')
 
     })
@@ -37,6 +37,8 @@ function addMovie(newMovie) {
 function deleteMovie(id) {
     $.ajax({url: `${BASE}/${id}`, type: 'DELETE',}).done(function (data) {
         console.log("deletesuccess")
+        getAllMovies()
+        closeModal()
     })
 }
 
