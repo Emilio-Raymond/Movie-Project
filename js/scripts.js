@@ -59,8 +59,10 @@ $('#add-movie-modal').click(function (e) {
 
 $('#movie-insert').click(function (event) {
     const imgId = event.target.getAttribute('data-id');
-    getSelectedMovie(imgId);
-    window.scrollTo({top: 0, behavior: "smooth"})
+    if (imgId !== null){
+        getSelectedMovie(imgId);
+        window.scrollTo({top: 0, behavior: "smooth"})
+    }
 })
 
 $('#createMovie').click(function (e) {
