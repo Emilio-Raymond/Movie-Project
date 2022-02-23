@@ -18,23 +18,33 @@ function creatingHtml(imgSrc, title, id) {
 function singleMovieModal(actors, date, director, genre, imdb, plot, poster, rating, rotten, runtime, title) {
     //language=HTML
     return `
-        <img src="${poster}" alt="${title} Movie Poster">
-        <div>
-            <p>${title}</p>
-            <p>${date}</p>
-            <p>${director}</p>
-            <p>${genre}</p>
-            <p>${imdb}</p>
-            <p>${plot}</p>
-            <p>IMDB: ${rating}</p>
-            <p>Tomatoes: ${rotten}</p>
-            <p>${runtime}</p>
-        </div>
-        <div id="links">
-            <a href="">Edit Movie</a>
-            <a href="">Delete Movie</a>
+        <div id="movie-info-insert">
+            <div id="movie-info-top">
+                <img src="${poster}" alt="${title} Movie Poster">
+                <div>
+                    <div id="tr">
+                        <p>${title}</p>
+                        <p>${rating}</p>
+                    </div>
+                    <p>Director - ${director}</p>
+                    <p>Actors - ${actors}</p>
+                    <p>Date Released - ${date}</p>
+                    <p>Genre - ${genre}</p>
+                    <p>IMDB Rating - ${imdb}</p>
+                    <p>Rotten Tomatoes Rating - ${rotten}</p>
+                    <p>Run Time - ${runtime}</p>
+                </div>
+            </div>
+            <div id="movie-info-plot">
+                <p>${plot}</p>
+            </div>
+            <div id="links">
+                <a href="">Edit Movie</a>
+                <a href="">Delete Movie</a>
+            </div>
         </div>`
 }
+
 const closeModal = function () {
     $createMovieForm.addClass('hidden')
     $movieInfo.addClass('hidden')
