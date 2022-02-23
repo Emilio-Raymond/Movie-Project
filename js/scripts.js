@@ -1,5 +1,9 @@
 "use strict;"
 
+const $createMovieForm = $('.create-movie-form');
+const $movieInfo = $('#movie-info');
+const $overlay = $('.overlay');
+
 function creatingHtml(imgSrc, title, id) {
     //language=HTML
     return `
@@ -14,8 +18,8 @@ function creatingHtml(imgSrc, title, id) {
 function singleMovieModal(actors, date, director, genre, imdb, plot, poster, rating, rotten, runtime, title) {
     //language=HTML
     return `
+        <img src="${poster}" alt="${title} Movie Poster">
         <div>
-            <img src="${poster}" alt="${title} Movie Poster">
             <p>${title}</p>
             <p>${date}</p>
             <p>${director}</p>
@@ -25,12 +29,23 @@ function singleMovieModal(actors, date, director, genre, imdb, plot, poster, rat
             <p>${rating}</p>
             <p>${rotten}</p>
             <p>${runtime}</p>
+        </div>
+        <div id="links">
+            <a href="">Edit Movie</a>
+            <a href="">Delete Movie</a>
         </div>`
+}
+
+const closeModal = function () {
+    $createMovieForm.addClass('hidden')
+    $movieInfo.addClass('hidden')
+    $overlay.addClass('hidden');
 }
 
 $('#add-movie-modal').click(function (e) {
     e.preventDefault();
-    $('.create-movie-form').toggleClass('hidden')
+    $createMovieForm.removeClass('hidden');
+    $overlay.removeClass('hidden');
 })
 
 $('#movie-insert').click(function (event) {
@@ -42,9 +57,25 @@ $('#createMovie').click(function (e) {
     e.preventDefault();
     getMovieData($('#title').val());
 })
-$('.create-movie-form').on('focus', function (e){
+
+$createMovieForm.on('focus', function (e) {
     if (e.key === 'Enter') {
         $('#createMovie').click();
     }
 })
 
+$overlay.click(function () {
+    closeModal()
+})
+
+$(document).on('keydown', function (e) {
+    if (e.key === "Escape") {
+        $('.create-movie-form').addClass('hidden');
+        $('#movie-info').addClass('hidden');
+        $('.overlay').addClass('hidden');
+    }
+})
+
+$('#close-form').click(function () {
+    closeModal()
+})

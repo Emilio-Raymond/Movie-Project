@@ -2,7 +2,6 @@
 const BASE = 'https://windy-brawny-lumber.glitch.me/movies'
 
 function getAllMovies() {
-    $(`#movie-insert`).html('Get Your POPCORN READY!')
     $.get(BASE, function () {
     }).done(function (results) {
         console.log(results)
@@ -23,7 +22,8 @@ getAllMovies()
 function getSelectedMovie(id) {
     $.get(`${BASE}/${id}`).done((results) => {
         console.log(results)
-        $('#movie-info').html(singleMovieModal(results.actors, results.dateReleased, results.director, results.genre, results.imdb, results.plot, results.poster, results.rating, results.rotten, results.runtime, results.title)).toggleClass('hidden')
+        $('#movie-info').html(singleMovieModal(results.actors, results.dateReleased, results.director, results.genre, results.imdb, results.plot, results.poster, results.rating, results.rotten, results.runtime, results.title)).removeClass('hidden')
+        $('.overlay').removeClass('hidden')
 
     })
 }

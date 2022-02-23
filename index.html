@@ -20,9 +20,10 @@
 
 <main>
     <section class="container" id="movie-insert">
-
+        <h1>Get Your POPCORN READY!</h1>
     </section>
-    <section class="create-movie-form hidden">
+    <section class="create-movie-form hidden modal">
+        <button id="close-form">x</button>
         <h1>Create new movie</h1>
         <form>
             <label for="title"></label>
@@ -35,9 +36,10 @@
     <div class="cone cone-left"></div>
     <div class="cone cone-right"></div>
 
-    <div id="movie-info" class="hidden">
+    <div id="movie-info" class="hidden modal">
 
     </div>
+    <div class="overlay hidden"></div>
 </main>
 <script src="js/keys.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
