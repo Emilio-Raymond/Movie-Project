@@ -15,10 +15,10 @@ function creatingHtml(imgSrc, title, id) {
         </div>`
 }
 
-function singleMovieModal(actors, date, director, genre, imdb, plot, poster, rating, rotten, runtime, title) {
+function singleMovieModal(actors, date, director, genre, imdb, plot, poster, rating, rotten, runtime, title, id) {
     //language=HTML
     return `
-        <div id="movie-info-insert">
+        <div id="movie-info-insert" data-id="${id}">
             <div id="movie-info-top">
                 <img src="${poster}" alt="${title} Movie Poster">
                 <div>
@@ -39,8 +39,8 @@ function singleMovieModal(actors, date, director, genre, imdb, plot, poster, rat
                 <p>${plot}</p>
             </div>
             <div id="links">
-                <a href="">Edit Movie</a>
-                <a href="">Delete Movie</a>
+                <a href="" id="edit">Edit Movie</a>
+                <a href="" id="delete">Delete Movie</a>
             </div>
         </div>`
 }
@@ -89,3 +89,16 @@ $(document).on('keydown', function (e) {
 $('#close-form').click(function () {
     closeModal()
 })
+
+$(`#movie-info`).click(function (e) {
+    e.preventDefault()
+    if (e.target.getAttribute('id') === 'edit'){
+        console.log("open edit modal")
+    }
+    if (e.target.getAttribute('id') === 'delete'){
+        deleteMovie($(this).children().attr('data-id'))
+    }
+})
+
+
+
