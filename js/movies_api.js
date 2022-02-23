@@ -22,7 +22,7 @@ getAllMovies()
 function getSelectedMovie(id) {
     $.get(`${BASE}/${id}`).done((results) => {
         console.log(results)
-        $('#movie-info').html(singleMovieModal(results.actors, results.dateReleased, results.director, results.genre, results.imdb, results.plot, results.poster, results.rating, results.rotten, results.runtime, results.title, results.id)).removeClass('hidden')
+        $('#movie-info').html(singleMovieModal(results.actors, results.dateReleased, results.director, results.genre, results.imdb, results.plot, results.poster, results.rating, results.runtime, results.title, results.year, results.id)).removeClass('hidden')
         $('.overlay').removeClass('hidden')
 
     })
@@ -51,13 +51,7 @@ function getMovieData(title) {
             return;
         }
         console.log(movie)
-        let value = ''
-        if(!movie.Ratings[1]) {
-            value = "N/A"
-        } else {
-            let {Value} = movie.Ratings[1].Value
-            value = Value
-        }
+
         const newMovie = {
             title: movie.Title,
             director: movie.Director,
@@ -69,7 +63,7 @@ function getMovieData(title) {
             imdb: movie.imdbRating,
             runtime: movie.Runtime,
             actors: movie.Actors,
-            rotten: value,
+            year: movie.Year,
         }
         addMovie(newMovie);
         $createMovieForm.addClass('hidden');

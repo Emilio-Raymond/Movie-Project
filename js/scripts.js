@@ -3,6 +3,7 @@
 const $createMovieForm = $('.create-movie-form');
 const $movieInfo = $('#movie-info');
 const $overlay = $('.overlay');
+const $editMovieSection = $('.edit-movie-section');
 
 function creatingHtml(imgSrc, title, id) {
     //language=HTML
@@ -15,39 +16,29 @@ function creatingHtml(imgSrc, title, id) {
         </div>`
 }
 
-function singleMovieModal(actors, date, director, genre, imdb, plot, poster, rating, rotten, runtime, title, id) {
+function singleMovieModal(actors, date, director, genre, imdb, plot, poster, rating, runtime, title, year, id) {
     //language=HTML
     return `
         <div id="movie-info-insert" data-id="${id}">
-            <div id="movie-info-top">
-                <img src="${poster}" alt="${title} Movie Poster">
-                <div>
-                    <div id="tr">
-                        <p>${title}</p>
-                        <p>${rating}</p>
-                    </div>
-                    <p>Director - ${director}</p>
-                    <p>Actors - ${actors}</p>
-                    <p>Date Released - ${date}</p>
-                    <p>Genre - ${genre}</p>
-                    <p>IMDB Rating - ${imdb}</p>
-                    <p>Rotten Tomatoes Rating - ${rotten}</p>
-                    <p>Run Time - ${runtime}</p>
+            <img src="${poster}" alt="${title} Movie Poster" id="single-image">
+            <div id="main-movie-info">
+                <h2>${title}<span>(${year})</span></h2>
+                <div class="facts">${rating}<span>${date}</span><span>${genre}</span><span>${runtime}</span></div>
+                <div id="ratings"><span>${imdb}/10</span> IMDB<span></div>
+                <div>${plot}</div>
+                <div>Actors - ${actors}</div>
+                <span>Director - ${director}</span>
+                <div id="links">
+                    <a href="" id="edit">Edit</a>
+                    <a href="" id="delete">Delete</a>
                 </div>
-            </div>
-            <div id="movie-info-plot">
-                <p>${plot}</p>
-            </div>
-            <div id="links">
-                <a href="" id="edit">Edit Movie</a>
-                <a href="" id="delete">Delete Movie</a>
-            </div>
-        </div>`
+            </div>`
 }
 
 const closeModal = function () {
-    $createMovieForm.addClass('hidden')
-    $movieInfo.addClass('hidden')
+    $createMovieForm.addClass('hidden');
+    $movieInfo.addClass('hidden');
+    $editMovieSection.addClass('hidden');
     $overlay.addClass('hidden');
 }
 
@@ -59,7 +50,7 @@ $('#add-movie-modal').click(function (e) {
 
 $('#movie-insert').click(function (event) {
     const imgId = event.target.getAttribute('data-id');
-    if (imgId !== null){
+    if (imgId !== null) {
         getSelectedMovie(imgId);
         window.scrollTo({top: 0, behavior: "smooth"})
     }
@@ -77,28 +68,26 @@ $createMovieForm.on('focus', function (e) {
 })
 
 $overlay.click(function () {
-    closeModal()
+    closeModal();
 })
 
 $(document).on('keydown', function (e) {
     if (e.key === "Escape") {
-        $('.create-movie-form').addClass('hidden');
-        $('#movie-info').addClass('hidden');
-        $('.overlay').addClass('hidden');
+       closeModal();
     }
 })
 
 $('#close-form').click(function () {
-    closeModal()
+    closeModal();
 })
 
 $(`#movie-info`).click(function (e) {
     e.preventDefault()
-    if (e.target.getAttribute('id') === 'edit'){
-        console.log("open edit modal")
+    if (e.target.getAttribute('id') === 'edit') {
+        $editMovieSection.removeClass('hidden');
     }
-    if (e.target.getAttribute('id') === 'delete'){
-        deleteMovie($(this).children().attr('data-id'))
+    if (e.target.getAttribute('id') === 'delete') {
+        deleteMovie($(this).children().attr('data-id'));
     }
 })
 
