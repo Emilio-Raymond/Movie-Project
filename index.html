@@ -5,40 +5,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="Emilio Benavides">
     <meta name="author" content="Raymond Dugan">
-    <link rel='stylesheet' href="css/styles.css">
-    <link rel="stylesheet" href="css/lights.css">
     <title>BlockBuster Night</title>
+    <!--     CSS Styling For The Entire Page-->
+    <link rel='stylesheet' href="css/styles.css">
+    <!--    Custom Light Beam Animations-->
+    <link rel="stylesheet" href="css/lights.css">
+
 </head>
 <body>
 
 <header>
     <nav>
-        Pick Sick Flicks
+        <p>Pick Sick Flicks</p>
+        <p><a href="" id="add-movie-modal">Add A New Movie</a></p>
     </nav>
 </header>
 
 <main>
+    <!--    Main Movie List-->
     <section class="container" id="movie-insert">
-
+        <h1>Get Your POPCORN READY!</h1>
     </section>
-    <section class="create-movie-form hidden" >
+    <!--Single Movie Information Modal-->
+    <section id="movie-info" class="hidden"></section>
+    <!--    Create A New Movie Form Modal-->
+    <section class="create-movie-form hidden">
+        <button id="close-form">x</button>
         <h1>Create new movie</h1>
         <form>
-            <input type="text" placeholder="Title" name="title"required>
+            <label for="title"></label>
+            <input type="text" placeholder="Title" name="title" id="title" required>
             <button id="createMovie">Create my movie</button>
         </form>
     </section>
+    <!--    Light Beams Section-->
     <div class="cone cone-left"></div>
     <div class="cone cone-right"></div>
     <div class="cone cone-left"></div>
     <div class="cone cone-right"></div>
-
-    <div id="movie-info">
-
-    </div>
+    <!--    Overlay-->
+    <div class="overlay hidden"></div>
 </main>
+<!--Link key for OMDB API-->
 <script src="js/keys.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<!--Link for Jquery-->
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+        crossorigin="anonymous"></script>
+<!--Links for custom JS-->
 <script src="js/scripts.js"></script>
 <script src="js/movies_api.js"></script>
 </body>

@@ -12,10 +12,13 @@
     margin: 0;
     padding: 0;
 }
-
+html {
+    height: 100%;
+}
 body {
+    height: 100%;
     font-size: 20px;
-    font-family: blackWidow, sans-serif;
+    font-family: glass, sans-serif;
     background: url("https://pngimg.com/uploads/popcorn/popcorn_PNG61.png"), linear-gradient(0deg, rgba(252, 153, 153, 1) 0%, rgba(255, 55, 55, 1) 25%, rgba(255, 0, 0, 1) 50%, rgba(255, 55, 55, 1) 75%, rgba(252, 153, 153, 1) 100%);
 }
 
@@ -28,6 +31,7 @@ nav {
     text-align: center;
 }
 
+/*Main Page Layouts*/
 .container {
     background-color: transparent;
     margin: auto auto;
@@ -53,12 +57,22 @@ nav {
 }
 
 .movie-container p {
+    font-family: blackWidow, sans-serif;
     min-height: 48px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
+/*Create Movie Form Styles*/
+.create-movie-form {
+    z-index: 10;
+    position: absolute;
+    top: 25%;
+    left: 25%;
+    background-color: #DECCCC;
+    width: 50vw;
+}
 
 .create-movie-form h1 {
     color: white;
@@ -66,40 +80,51 @@ nav {
     margin-top: 1em;
 }
 
-.create-movie-form {
-    position: absolute;
-    top: 25%;
-    left: 25%;
-    background-color: #1495bd;
-    width: 50vw;
-    /*display: none;*/
-}
-
-form {
+.create-movie-form form {
     display: flex;
     margin: auto auto;
     flex-direction: column;
     width: 50%;
 }
 
-form input, form select {
+.create-movie-form form input {
     margin: 1em 0;
 }
 
-form button {
-    width: 25%;
+.create-movie-form form button {
+    width: 50%;
     margin: 0 auto 1em;
 }
 
+#close-form {
+    position: absolute;
+    right: 10px;
+    border: none;
+    background: none;
+}
+
+/*Individual Movie Information Panel Styles*/
 #movie-info {
-    background-color: #1495bd;
+    background-color: #87CBAC;
     position: absolute;
     top: 25%;
     left: 15%;
     width: 75%;
-    height: 90%;
+    z-index: 10;
 }
 
+/*Hidden and Overlay Styles*/
 .hidden {
     display: none;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(3px);
+    z-index: 5;
 }
