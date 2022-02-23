@@ -13,7 +13,8 @@
 
 <header>
     <nav>
-        Pick Sick Flicks
+        <p>Pick Sick Flicks</p>
+        <p><a href="" id="add-movie-modal">Add A New Movie</a></p>
     </nav>
 </header>
 
@@ -21,10 +22,11 @@
     <section class="container" id="movie-insert">
 
     </section>
-    <section class="create-movie-form hidden" >
+    <section class="create-movie-form hidden">
         <h1>Create new movie</h1>
         <form>
-            <input type="text" placeholder="Title" name="title"required>
+            <label for="title"></label>
+            <input type="text" placeholder="Title" name="title" id="title"  required>
             <button id="createMovie">Create my movie</button>
         </form>
     </section>
@@ -33,7 +35,7 @@
     <div class="cone cone-left"></div>
     <div class="cone cone-right"></div>
 
-    <div id="movie-info">
+    <div id="movie-info" class="hidden">
 
     </div>
 </main>

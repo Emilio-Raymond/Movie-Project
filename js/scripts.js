@@ -4,32 +4,47 @@ function creatingHtml(imgSrc, title, id) {
     //language=HTML
     return `
         <div id="movie" class="movie-container">
-            <div id="img-div">
+            <div>
                 <img src="${imgSrc}" alt="Movie Poster" data-id="${id}">
                 <p>${title}</p>
             </div>
         </div>`
 }
 
-function singleMovieModal(actors, date, director, genre, imdb, plot, poster, rating, rotten, runtime, title){
+function singleMovieModal(actors, date, director, genre, imdb, plot, poster, rating, rotten, runtime, title) {
     //language=HTML
-    return `<p>${title}</p>`
+    return `
+        <div>
+            <img src="${poster}" alt="${title} Movie Poster">
+            <p>${title}</p>
+            <p>${date}</p>
+            <p>${director}</p>
+            <p>${genre}</p>
+            <p>${imdb}</p>
+            <p>${plot}</p>
+            <p>${rating}</p>
+            <p>${rotten}</p>
+            <p>${runtime}</p>
+        </div>`
 }
 
-function createMovie() {
-    const [title] = $('form').children()
-    return title.value
-}
+$('#add-movie-modal').click(function (e) {
+    e.preventDefault();
+    $('.create-movie-form').toggleClass('hidden')
+})
 
-
-$('#movie-insert').click(function (event){
+$('#movie-insert').click(function (event) {
     const imgId = event.target.getAttribute('data-id');
-    getSelectedMovie(imgId)
+    getSelectedMovie(imgId);
 })
 
 $('#createMovie').click(function (e) {
     e.preventDefault();
-    //addMovie(createMovie())
-    getMovieData(createMovie())
+    getMovieData($('#title').val());
+})
+$('.create-movie-form').on('focus', function (e){
+    if (e.key === 'Enter') {
+        $('#createMovie').click();
+    }
 })
 

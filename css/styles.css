@@ -15,7 +15,7 @@
 
 body {
     font-size: 20px;
-    font-family: blackWidow, sans-serif;
+    font-family: glass, sans-serif;
     background: url("https://pngimg.com/uploads/popcorn/popcorn_PNG61.png"), linear-gradient(0deg, rgba(252, 153, 153, 1) 0%, rgba(255, 55, 55, 1) 25%, rgba(255, 0, 0, 1) 50%, rgba(255, 55, 55, 1) 75%, rgba(252, 153, 153, 1) 100%);
 }
 
@@ -53,6 +53,7 @@ nav {
 }
 
 .movie-container p {
+    font-family: blackWidow, sans-serif;
     min-height: 48px;
     display: flex;
     align-items: center;
@@ -72,7 +73,6 @@ nav {
     left: 25%;
     background-color: #1495bd;
     width: 50vw;
-    /*display: none;*/
 }
 
 form {
@@ -87,7 +87,7 @@ form input, form select {
 }
 
 form button {
-    width: 25%;
+    width: 50%;
     margin: 0 auto 1em;
 }
 
@@ -97,7 +97,6 @@ form button {
     top: 25%;
     left: 15%;
     width: 75%;
-    height: 90%;
 }
 
 .hidden {

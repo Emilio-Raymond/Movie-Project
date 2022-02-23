@@ -2,8 +2,8 @@
 const BASE = 'https://windy-brawny-lumber.glitch.me/movies'
 
 function getAllMovies() {
+    $(`#movie-insert`).html('Get Your POPCORN READY!')
     $.get(BASE, function () {
-        $(`#movie-insert`).html('Get Your POPCORN READY!')
     }).done(function (results) {
         console.log(results)
         $(`#movie-insert`).html('')
@@ -20,15 +20,15 @@ function getAllMovies() {
 
 getAllMovies()
 
-function getSelectedMovie(id){
+function getSelectedMovie(id) {
     $.get(`${BASE}/${id}`).done((results) => {
         console.log(results)
-       $('#movie-info').html(singleMovieModal(results.actors, results.dateReleased, results.director, results.genre, results.imdb, results.plot, results.poster, results.rating, results.rotten, results.runtime, results.title))
+        $('#movie-info').html(singleMovieModal(results.actors, results.dateReleased, results.director, results.genre, results.imdb, results.plot, results.poster, results.rating, results.rotten, results.runtime, results.title)).toggleClass('hidden')
+
     })
 }
 
 function addMovie(newMovie) {
-    console.log(newMovie);
     $.post(BASE, newMovie).done(function () {
         getAllMovies()
     })
@@ -40,26 +40,30 @@ function deleteMovie(id) {
     })
 }
 
-function getMovieData (title) {
+function getMovieData(title) {
     let structuredTitle = title.split(' ').join('+')
-    console.log(structuredTitle)
-    $.get(`http://www.omdbapi.com/?apikey=${OMBD_KEY}&t=${structuredTitle}`).done(function (results) {
-        console.log(results)
-        const {Value} = results.Ratings[1];
+    $.get(`http://www.omdbapi.com/?apikey=${OMBD_KEY}&t=${structuredTitle}`, function (movie, _, jqXHR) {
+        const {Error} = jqXHR.responseJSON
+        if (Error === "Movie not found!") {
+            alert("Movie not found. Please enter a correct title.");
+            return;
+        }
+        let {Value} = movie.Ratings[1] || 'Not Available';
         const newMovie = {
-            title: results.Title,
-            director: results.Director,
-            poster: results.Poster,
-            dateReleased: results.Released,
-            genre: results.Genre,
-            plot: results.Plot,
-            rating: results.Rated,
-            imdb: results.imdbRating,
-            runtime: results.Runtime,
-            actors: results.Actors,
+            title: movie.Title,
+            director: movie.Director,
+            poster: movie.Poster,
+            dateReleased: movie.Released,
+            genre: movie.Genre,
+            plot: movie.Plot,
+            rating: movie.Rated,
+            imdb: movie.imdbRating,
+            runtime: movie.Runtime,
+            actors: movie.Actors,
             rotten: Value,
         }
-        addMovie(newMovie)
-        $(`.create-movie-form`).toggleClass('hidden')
+        addMovie(newMovie);
+        $(`.create-movie-form`).removeClass('hidden');
+        $('#title').val('')
     })
 }
