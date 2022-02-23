@@ -70,7 +70,7 @@ nav {
     position: absolute;
     top: 25%;
     left: 25%;
-    background-color: #1495bd;
+    background-color: #DECCCC;
     width: 50vw;
 }
 
@@ -87,7 +87,7 @@ nav {
     width: 50%;
 }
 
-.create-movie-form form input, .create-movie-form form select {
+.create-movie-form form input {
     margin: 1em 0;
 }
 
@@ -105,7 +105,7 @@ nav {
 
 /*Individual Movie Information Panel Styles*/
 #movie-info {
-    background-color: #1495bd;
+    background-color: #87CBAC;
     position: absolute;
     top: 25%;
     left: 15%;

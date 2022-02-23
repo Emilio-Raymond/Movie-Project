@@ -26,8 +26,8 @@ function singleMovieModal(actors, date, director, genre, imdb, plot, poster, rat
             <p>${genre}</p>
             <p>${imdb}</p>
             <p>${plot}</p>
-            <p>${rating}</p>
-            <p>${rotten}</p>
+            <p>IMDB: ${rating}</p>
+            <p>Tomatoes: ${rotten}</p>
             <p>${runtime}</p>
         </div>
         <div id="links">

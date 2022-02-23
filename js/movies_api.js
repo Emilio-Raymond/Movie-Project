@@ -48,7 +48,14 @@ function getMovieData(title) {
             alert("Movie not found. Please enter a correct title.");
             return;
         }
-        let {Value} = movie.Ratings[1] || 'Not Available';
+        console.log(movie)
+        let value = ''
+        if(!movie.Ratings[1]) {
+            value = "N/A"
+        } else {
+            let {Value} = movie.Ratings[1].Value
+            value = Value
+        }
         const newMovie = {
             title: movie.Title,
             director: movie.Director,
@@ -60,10 +67,11 @@ function getMovieData(title) {
             imdb: movie.imdbRating,
             runtime: movie.Runtime,
             actors: movie.Actors,
-            rotten: Value,
+            rotten: value,
         }
         addMovie(newMovie);
-        $(`.create-movie-form`).removeClass('hidden');
+        $createMovieForm.addClass('hidden');
+        $overlay.addClass('hidden')
         $('#title').val('')
     })
 }
