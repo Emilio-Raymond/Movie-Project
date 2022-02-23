@@ -70,7 +70,7 @@ nav {
     position: absolute;
     top: 25%;
     left: 25%;
-    background-color: #DECCCC;
+    background-color: #609bd9;
     width: 50vw;
 }
 
@@ -105,7 +105,7 @@ nav {
 
 /*Individual Movie Information Panel Styles*/
 #movie-info {
-    background-color: #87CBAC;
+    background-color: #609bd9;
     position: absolute;
     top: 25%;
     left: 15%;
@@ -128,3 +128,4 @@ nav {
     backdrop-filter: blur(3px);
     z-index: 5;
 }
+
