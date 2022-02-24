@@ -18,13 +18,19 @@ function creatingHtml(imgSrc, title, id) {
 
 function singleMovieModal(actors, date, director, genre, imdb, plot, poster, rating, runtime, title, year, id) {
     //language=HTML
+    let imdbRate = ""
+    if (imdb === "N/A"){
+        imdbRate = 'NR'
+    } else{
+        imdbRate = `${imdb}/10`
+    }
     return `
         <div id="movie-info-insert" data-id="${id}">
             <img src="${poster}" alt="${title} Movie Poster" id="single-image">
             <div id="main-movie-info">
                 <h2>${title}<span>(${year})</span></h2>
                 <div class="facts">${rating}<span>${date}</span><span>${genre}</span><span>${runtime}</span></div>
-                <div id="ratings"><span>${imdb}/10</span> IMDB<span></div>
+                <div id="ratings"><span>${imdbRate}</span> IMDB<span></div>
                 <div>${plot}</div>
                 <div>Actors - ${actors}</div>
                 <span>Director - ${director}</span>

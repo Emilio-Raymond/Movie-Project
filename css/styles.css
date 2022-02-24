@@ -29,6 +29,16 @@ nav {
     margin-bottom: 1em;
     font-size: 30px;
     text-align: center;
+    display: flex;
+}
+nav p {
+    margin: 0 1em;
+}
+nav label {
+    margin-left: 1em;
+}
+nav p:nth-of-type(1) {
+    margin-right: auto
 }
 a {
     text-decoration: none;
