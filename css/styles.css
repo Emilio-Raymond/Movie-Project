@@ -206,7 +206,7 @@ h1 {
     text-align: center;
     margin-top: .5em;
 }
-#edit-movie-form {
+#close-edit-form{
     position: absolute;
     right: 10px;
     border: none;

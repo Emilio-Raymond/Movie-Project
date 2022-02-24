@@ -1,15 +1,21 @@
 'use strict';
 const BASE = 'https://windy-brawny-lumber.glitch.me/movies'
 
+// Gets an array of objects from the server
 const getAllMovies = function (sortBy = 'Title') {
     $.get(BASE, function () {
     }).done(function (movies) {
         console.log(movies);
+
+        // Clears the current movie list
         $(`#movie-insert`).html('');
 
+        // Uses the return of customSort and loop through the results to post the html
         customSort(movies, sortBy).forEach(function (movie) {
-            if (movie.title === undefined) {
+            // If the movie title is undefined, delete the movie
+            if (movie.title === undefined || movie.title === "") {
                 deleteMovie(movie.id);
+                getAllMovies();
             }
             const HTML = creatingHtml(movie.poster, movie.title, movie.id);
             $(`#movie-insert`).append(HTML);
@@ -18,6 +24,7 @@ const getAllMovies = function (sortBy = 'Title') {
 }
 getAllMovies()
 
+// Gets data for one movie based on the id passed in
 const getSelectedMovie = function (id) {
     $.get(`${BASE}/${id}`).done((results) => {
         const ACTORS = results.actors;
@@ -32,6 +39,7 @@ const getSelectedMovie = function (id) {
         const TITLE = results.title;
         const YEAR = results.year;
         const ID = results.id;
+
         $('#movie-info')
             .html(singleMovieModal(ACTORS, DATE_RELEASED, DIRECTOR, GENRE, IMDB_RATING, PLOT, POSTER, MOVIE_RATING, RUNTIME, TITLE, YEAR, ID))
             .removeClass('hidden')
@@ -39,20 +47,12 @@ const getSelectedMovie = function (id) {
     })
 }
 
+// Adds the movie to the database
 const addMovie = function (newMovie) {
-    $.post(BASE, newMovie).done(function () {
-        getAllMovies()
-    })
+    $.post(BASE, newMovie).done(getAllMovies)
 }
 
-const deleteMovie = function (id) {
-    $.ajax({url: `${BASE}/${id}`, type: 'DELETE',}).done(function (data) {
-        console.log("deletesuccess")
-        getAllMovies()
-        closeModal()
-    })
-}
-
+// Calls the addMovie function based on the results of the title being added
 const getMovieData = function (title) {
     let structuredTitle = title.split(' ').join('+')
     $.get(`http://www.omdbapi.com/?apikey=${OMBD_KEY}&t=${structuredTitle}`, function (movie, _, jqXHR) {
@@ -83,13 +83,20 @@ const getMovieData = function (title) {
     })
 }
 
+//Deletes movie from database
+const deleteMovie = function (id) {
+    $.ajax({url: `${BASE}/${id}`, type: 'DELETE',}).done( _ => {
+        getAllMovies()
+        closeModal()
+    })
+}
+
+// Edits the current movie passed in by id and movie data
 const editRequest = function (id, editedData) {
     $.ajax({
         url: `${BASE}/${id}`,
         type: 'PATCh',
         data: editedData,
-    }).done(function (){
-        getAllMovies();
-    })
+    }).done(getAllMovies)
 }
 
