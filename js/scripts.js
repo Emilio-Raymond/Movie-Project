@@ -70,6 +70,27 @@ const editFormFill = function () {
     $movieInfo.addClass('hidden');
 }
 
+// Pass in the edited values to update the database when clicked
+const editMovie = function (event) {
+    event.preventDefault();
+    const movieID = $('#movie-info-insert').attr('data-id');
+    editRequest(movieID, getEditData());
+    $editMovieSection.addClass('hidden');
+    $overlay.addClass('hidden')
+}
+
+// Checks to see which link is clicked on the single movie info modal
+// calls either the edit or delete functions based on the target
+const editOrDelete = function (e) {
+    e.preventDefault();
+    console.log(e.target)
+    if (e.target.getAttribute('id') === 'edit') {
+        editFormFill();
+    }
+    if (e.target.getAttribute('id') === 'delete') {
+        deleteMovie($('#movie-info').children().attr('data-id'));
+    }
+}
 // Returns the values to patch the movie
 const getEditData = function (){
     return {

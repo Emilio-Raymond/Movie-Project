@@ -46,26 +46,11 @@ $('#close-form').click(closeModal);
 // Closes all modals when the close button is clicked
 $('#close-edit-form').click(closeModal);
 
-// Checks to see which link is clicked on the single movie info modal
-// calls either the edit or delete functions based on the target
-$(`#movie-info`).click(function (e) {
-    e.preventDefault();
-    if (e.target.getAttribute('id') === 'edit') {
-        editFormFill();
-    }
-    if (e.target.getAttribute('id') === 'delete') {
-        deleteMovie($(this).children().attr('data-id'));
-    }
-})
+// On click calls the editOrDelete function
+$(`#movie-info`).click(editOrDelete.bind());
 
-// passed in the edited values to update the database when clicked
-$('#editMovie').click(function (e) {
-    e.preventDefault();
-    const movieID = $('#movie-info-insert').attr('data-id');
-    editRequest(movieID, getEditData());
-    $editMovieSection.addClass('hidden');
-    $overlay.addClass('hidden')
-})
+// Calls the editMovie function when clicked
+$('#editMovie').click(editMovie.bind());
 
 // Sorts list based on change of the select
 $('#sort').on('change', function () {
