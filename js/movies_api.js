@@ -1,40 +1,50 @@
 'use strict';
 const BASE = 'https://windy-brawny-lumber.glitch.me/movies'
 
-function getAllMovies() {
+const getAllMovies = function () {
     $.get(BASE, function () {
     }).done(function (results) {
-        console.log(results)
         $(`#movie-insert`).html('')
         results.forEach(function (movie) {
-            //     if (movie.title === undefined) {
-            //
-            //         deleteMovie(movie.id)
-            //     }
+            if (movie.title === undefined) {
+                deleteMovie(movie.id)
+            }
             const HTML = creatingHtml(movie.poster, movie.title, movie.id)
             $(`#movie-insert`).append(HTML)
         })
     })
 }
-
 getAllMovies()
 
-function getSelectedMovie(id) {
+const getSelectedMovie = function (id) {
     $.get(`${BASE}/${id}`).done((results) => {
         console.log(results)
-        $('#movie-info').html(singleMovieModal(results.actors, results.dateReleased, results.director, results.genre, results.imdb, results.plot, results.poster, results.rating, results.runtime, results.title, results.year, results.id)).removeClass('hidden')
-        $('.overlay').removeClass('hidden')
-
+        const ACTORS = results.actors;
+        const DATE_RELEASED = results.dateReleased;
+        const DIRECTOR = results.director;
+        const GENRE = results.genre;
+        const IMDB_RATING = results.imdb;
+        const PLOT = results.plot;
+        const POSTER = results.poster;
+        const MOVIE_RATING = results.rating;
+        const RUNTIME = results.runtime;
+        const TITLE = results.title;
+        const YEAR = results.year;
+        const ID = results.id;
+        $('#movie-info')
+            .html(singleMovieModal(ACTORS,DATE_RELEASED,DIRECTOR,GENRE,IMDB_RATING,PLOT,POSTER,MOVIE_RATING,RUNTIME,TITLE,YEAR, ID))
+            .removeClass('hidden')
+        $overlay.removeClass('hidden')
     })
 }
 
-function addMovie(newMovie) {
+const addMovie = function (newMovie) {
     $.post(BASE, newMovie).done(function () {
         getAllMovies()
     })
 }
 
-function deleteMovie(id) {
+const deleteMovie = function (id) {
     $.ajax({url: `${BASE}/${id}`, type: 'DELETE',}).done(function (data) {
         console.log("deletesuccess")
         getAllMovies()
@@ -42,7 +52,7 @@ function deleteMovie(id) {
     })
 }
 
-function getMovieData(title) {
+const getMovieData = function (title) {
     let structuredTitle = title.split(' ').join('+')
     $.get(`http://www.omdbapi.com/?apikey=${OMBD_KEY}&t=${structuredTitle}`, function (movie, _, jqXHR) {
         const {Error} = jqXHR.responseJSON

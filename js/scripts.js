@@ -5,7 +5,7 @@ const $movieInfo = $('#movie-info');
 const $overlay = $('.overlay');
 const $editMovieSection = $('.edit-movie-section');
 
-function creatingHtml(imgSrc, title, id) {
+const creatingHtml = function (imgSrc, title, id) {
     //language=HTML
     return `
         <div id="movie" class="movie-container">
@@ -16,21 +16,24 @@ function creatingHtml(imgSrc, title, id) {
         </div>`
 }
 
-function singleMovieModal(actors, date, director, genre, imdb, plot, poster, rating, runtime, title, year, id) {
-    //language=HTML
-    let imdbRate = ""
-    if (imdb === "N/A"){
-        imdbRate = 'NR'
+const setIMDBRating = function(imdbRating){
+    if (imdbRating === "N/A"){
+        return 'NR'
     } else{
-        imdbRate = `${imdb}/10`
+        return `${imdbRating}/10`
     }
+}
+
+const singleMovieModal = function (actors, date, director, genre, imdb, plot, poster, rating, runtime, title, year, id) {
+    //language=HTML
+
     return `
         <div id="movie-info-insert" data-id="${id}">
             <img src="${poster}" alt="${title} Movie Poster" id="single-image">
             <div id="main-movie-info">
                 <h2>${title}<span>(${year})</span></h2>
-                <div class="facts">${rating}<span>${date}</span><span>${genre}</span><span>${runtime}</span></div>
-                <div id="ratings"><span>${imdbRate}</span> IMDB<span></div>
+                <div class="facts">${rating}<span>${date}</span><span id="single-genre">${genre}</span><span>${runtime}</span></div>
+                <div id="ratings"><span>${setIMDBRating(imdb)}</span> IMDB<span></div>
                 <div>${plot}</div>
                 <div>Actors - ${actors}</div>
                 <span>Director - ${director}</span>
@@ -48,54 +51,15 @@ const closeModal = function () {
     $overlay.addClass('hidden');
 }
 
-$('#add-movie-modal').click(function (e) {
-    e.preventDefault();
-    $createMovieForm.removeClass('hidden');
-    $overlay.removeClass('hidden');
-})
+const editFormFill = function (){
+    let [title, year] =  $('#main-movie-info h2').text().split('(')
+    let genre = $('#single-genre').text()
+    $('#editTitle').val(title);
+    $('#editYear').val(parseInt(year));
+    $('#editGenre').val(genre);
+    $editMovieSection.removeClass('hidden');
+}
 
-$('#movie-insert').click(function (event) {
-    const imgId = event.target.getAttribute('data-id');
-    if (imgId !== null) {
-        getSelectedMovie(imgId);
-        window.scrollTo({top: 0, behavior: "smooth"})
-    }
-})
-
-$('#createMovie').click(function (e) {
-    e.preventDefault();
-    getMovieData($('#title').val());
-})
-
-$createMovieForm.on('focus', function (e) {
-    if (e.key === 'Enter') {
-        $('#createMovie').click();
-    }
-})
-
-$overlay.click(function () {
-    closeModal();
-})
-
-$(document).on('keydown', function (e) {
-    if (e.key === "Escape") {
-       closeModal();
-    }
-})
-
-$('#close-form').click(function () {
-    closeModal();
-})
-
-$(`#movie-info`).click(function (e) {
-    e.preventDefault()
-    if (e.target.getAttribute('id') === 'edit') {
-        $editMovieSection.removeClass('hidden');
-    }
-    if (e.target.getAttribute('id') === 'delete') {
-        deleteMovie($(this).children().attr('data-id'));
-    }
-})
 
 
 
