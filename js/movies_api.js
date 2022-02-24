@@ -1,16 +1,18 @@
 'use strict';
 const BASE = 'https://windy-brawny-lumber.glitch.me/movies'
 
-const getAllMovies = function () {
+const getAllMovies = function (sortBy = 'Title') {
     $.get(BASE, function () {
-    }).done(function (results) {
-        $(`#movie-insert`).html('')
-        results.forEach(function (movie) {
+    }).done(function (movies) {
+        console.log(movies);
+        $(`#movie-insert`).html('');
+
+        customSort(movies, sortBy).forEach(function (movie) {
             if (movie.title === undefined) {
-                deleteMovie(movie.id)
+                deleteMovie(movie.id);
             }
-            const HTML = creatingHtml(movie.poster, movie.title, movie.id)
-            $(`#movie-insert`).append(HTML)
+            const HTML = creatingHtml(movie.poster, movie.title, movie.id);
+            $(`#movie-insert`).append(HTML);
         })
     })
 }
@@ -18,7 +20,6 @@ getAllMovies()
 
 const getSelectedMovie = function (id) {
     $.get(`${BASE}/${id}`).done((results) => {
-        console.log(results)
         const ACTORS = results.actors;
         const DATE_RELEASED = results.dateReleased;
         const DIRECTOR = results.director;
@@ -32,7 +33,7 @@ const getSelectedMovie = function (id) {
         const YEAR = results.year;
         const ID = results.id;
         $('#movie-info')
-            .html(singleMovieModal(ACTORS,DATE_RELEASED,DIRECTOR,GENRE,IMDB_RATING,PLOT,POSTER,MOVIE_RATING,RUNTIME,TITLE,YEAR, ID))
+            .html(singleMovieModal(ACTORS, DATE_RELEASED, DIRECTOR, GENRE, IMDB_RATING, PLOT, POSTER, MOVIE_RATING, RUNTIME, TITLE, YEAR, ID))
             .removeClass('hidden')
         $overlay.removeClass('hidden')
     })
@@ -81,3 +82,14 @@ const getMovieData = function (title) {
         $('#title').val('')
     })
 }
+
+const editRequest = function (id, editedData) {
+    $.ajax({
+        url: `${BASE}/${id}`,
+        type: 'PATCh',
+        data: editedData,
+    }).done(function (){
+        getAllMovies();
+    })
+}
+

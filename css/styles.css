@@ -191,7 +191,7 @@ a:hover {
     position: absolute;
     top: 25%;
     left: 25%;
-    background-color: #609bd9;
+    background-color: rgba(96, 155, 217, 0.8);
     width: 50vw;
     align-items: center;
 }

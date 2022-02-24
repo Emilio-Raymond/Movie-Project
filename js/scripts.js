@@ -5,6 +5,10 @@ const $movieInfo = $('#movie-info');
 const $overlay = $('.overlay');
 const $editMovieSection = $('.edit-movie-section');
 
+const $editTitleInput = $('#editTitle');
+const $editYearInput = $('#editYear');
+const $editGenreInput = $('#editGenre');
+
 const creatingHtml = function (imgSrc, title, id) {
     //language=HTML
     return `
@@ -16,10 +20,10 @@ const creatingHtml = function (imgSrc, title, id) {
         </div>`
 }
 
-const setIMDBRating = function(imdbRating){
-    if (imdbRating === "N/A"){
+const setIMDBRating = function (imdbRating) {
+    if (imdbRating === "N/A") {
         return 'NR'
-    } else{
+    } else {
         return `${imdbRating}/10`
     }
 }
@@ -32,7 +36,8 @@ const singleMovieModal = function (actors, date, director, genre, imdb, plot, po
             <img src="${poster}" alt="${title} Movie Poster" id="single-image">
             <div id="main-movie-info">
                 <h2>${title}<span>(${year})</span></h2>
-                <div class="facts">${rating}<span>${date}</span><span id="single-genre">${genre}</span><span>${runtime}</span></div>
+                <div class="facts">${rating}<span>${date}</span><span
+                        id="single-genre">${genre}</span><span>${runtime}</span></div>
                 <div id="ratings"><span>${setIMDBRating(imdb)}</span> IMDB<span></div>
                 <div>${plot}</div>
                 <div>Actors - ${actors}</div>
@@ -51,15 +56,34 @@ const closeModal = function () {
     $overlay.addClass('hidden');
 }
 
-const editFormFill = function (){
-    let [title, year] =  $('#main-movie-info h2').text().split('(')
+const editFormFill = function () {
+    let [title, year] = $('#main-movie-info h2').text().split('(')
     let genre = $('#single-genre').text()
-    $('#editTitle').val(title);
-    $('#editYear').val(parseInt(year));
-    $('#editGenre').val(genre);
+    $editTitleInput.val(title);
+    $editYearInput.val(parseInt(year));
+    $editGenreInput.val(genre);
     $editMovieSection.removeClass('hidden');
+    $movieInfo.addClass('hidden');
+}
+
+const getEditData = function (){
+    return {
+        title: $editTitleInput.val(),
+        year: $editYearInput.val(),
+        genre: $editGenreInput.val()
+    }
 }
 
 
-
-
+const customSort = function(movieData, sortBy) {
+    if (sortBy === 'Title'){
+        return movieData.sort((prevMovie, currMovie) => prevMovie.title.localeCompare(currMovie.title));
+    } else if (sortBy === "Rating"){
+        return movieData.sort((prevMovie, currMovie) => prevMovie.rating.localeCompare(currMovie.rating));
+    } else if (sortBy === "Action" || sortBy === "Adventure" || sortBy === "Comedy" || sortBy === "Drama" || sortBy === "Fantasy" || sortBy === "Horror" || sortBy === "Mystery" || sortBy === "Romance" || sortBy === "Thriller" || sortBy === "War" || sortBy === "Western") {
+        return movieData.filter(movie => movie.genre.split(', ').includes(sortBy))
+            .sort((prevMovie, currMovie) => prevMovie.title.localeCompare(currMovie.title));
+    } else {
+        return movieData;
+    }
+}

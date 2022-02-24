@@ -46,3 +46,16 @@ $(`#movie-info`).click(function (e) {
         deleteMovie($(this).children().attr('data-id'));
     }
 })
+
+$('#editMovie').click(function (e){
+    e.preventDefault();
+    const movieID = $('#movie-info-insert').attr('data-id');
+    editRequest(movieID, getEditData());
+    $editMovieSection.addClass('hidden');
+    $overlay.addClass('hidden')
+})
+
+$('#sort').on('change', function (){
+    let sortValue = $('#sort option:selected').val()
+    getAllMovies(sortValue)
+})
