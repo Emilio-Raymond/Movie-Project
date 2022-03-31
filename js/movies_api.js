@@ -49,7 +49,9 @@ const getSelectedMovie = function (id) {
 
 // Adds the movie to the database
 const addMovie = function (newMovie) {
-    $.post(BASE, newMovie).done(getAllMovies)
+    $.post(BASE, newMovie).done(function (){
+        getAllMovies('Title')
+    })
 }
 
 // Calls the addMovie function based on the results of the title being added
