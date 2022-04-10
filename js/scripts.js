@@ -5,9 +5,17 @@ const $movieInfo = $('#movie-info');
 const $overlay = $('.overlay');
 const $editMovieSection = $('.edit-movie-section');
 
-const $editTitleInput = $('#editTitle');
-const $editYearInput = $('#editYear');
-const $editGenreInput = $('#editGenre');
+const $editTitle = $('#editTitle');
+const $editDirector = $('#editDirector');
+const $editPoster = $('#editPoster');
+const $editDateReleased = $('#editDateReleased');
+const $editYearMade = $('#editYearMade');
+const $editGenre = $('#editGenre');
+const $editPlot = $('#editPlot');
+const $editRating = $('#editRating');
+const $editImdb = $('#editImdb');
+const $editRuntime = $('#editRuntime');
+const $editActors = $('#editActors');
 
 // Creates main html for page
 const creatingHtml = function (imgSrc, title, id) {
@@ -51,6 +59,27 @@ const singleMovieModal = function (actors, date, director, genre, imdb, plot, po
             </div>`
 }
 
+const someFun = (movie) => {
+    const ACTORS = movie.actors;
+    const DATE_RELEASED = movie.dateReleased;
+    const DIRECTOR = movie.director;
+    const GENRE = movie.genre;
+    const IMDB_RATING = movie.imdb;
+    const PLOT = movie.plot;
+    const POSTER = movie.poster;
+    const MOVIE_RATING = movie.rating;
+    const RUNTIME = movie.runtime;
+    const TITLE = movie.title;
+    const YEAR = movie.yearMade;
+    const ID = movie.id;
+
+    $('#movie-info')
+        .html(singleMovieModal(ACTORS, DATE_RELEASED, DIRECTOR, GENRE, IMDB_RATING, PLOT, POSTER, MOVIE_RATING, RUNTIME, TITLE, YEAR, ID))
+        .removeClass('hidden')
+    $overlay.removeClass('hidden')
+    editFormFill(movie)
+}
+
 // Closes all modals
 const closeModal = function () {
     $createMovieForm.addClass('hidden');
@@ -60,14 +89,18 @@ const closeModal = function () {
 }
 
 // Sets the values for the edit modal
-const editFormFill = function () {
-    let [title, year] = $('#main-movie-info h2').text().split('(')
-    let genre = $('#single-genre').text()
-    $editTitleInput.val(title);
-    $editYearInput.val(parseInt(year));
-    $editGenreInput.val(genre);
-    $editMovieSection.removeClass('hidden');
-    $movieInfo.addClass('hidden');
+const editFormFill = function (movie) {
+    $editTitle.val(movie.title);
+    $editDirector.val(movie.director);
+    $editPoster.val(movie.poster);
+    $editDateReleased.val(movie.dateReleased);
+    $editYearMade.val(parseInt(movie.yearMade));
+    $editGenre.val(movie.genre);
+    $editPlot.val(movie.plot);
+    $editRating.val(movie.rating);
+    $editImdb.val(movie.imdb);
+    $editRuntime.val(movie.runtime);
+    $editActors.val(movie.actors);
 }
 
 // Pass in the edited values to update the database when clicked
@@ -83,9 +116,9 @@ const editMovie = function (event) {
 // calls either the edit or delete functions based on the target
 const editOrDelete = function (e) {
     e.preventDefault();
-    console.log(e.target)
     if (e.target.getAttribute('id') === 'edit') {
-        editFormFill();
+        $editMovieSection.removeClass('hidden');
+        $movieInfo.addClass('hidden');
     }
     if (e.target.getAttribute('id') === 'delete') {
         deleteMovie($('#movie-info').children().attr('data-id'));
@@ -94,9 +127,17 @@ const editOrDelete = function (e) {
 // Returns the values to patch the movie
 const getEditData = function (){
     return {
-        title: $editTitleInput.val(),
-        year: $editYearInput.val(),
-        genre: $editGenreInput.val()
+        title: $editTitle.val(),
+        director: $editDirector.val(),
+        poster: $editPoster.val(),
+        dateReleased: $editDateReleased.val(),
+        yearMade: $editYearMade.val(),
+        genre: $editGenre.val(),
+        plot: $editPlot.val(),
+        rating: $editRating.val(),
+        imdb: $editImdb.val(),
+        runtime: $editRuntime.val(),
+        actors: $editActors.val(),
     }
 }
 
