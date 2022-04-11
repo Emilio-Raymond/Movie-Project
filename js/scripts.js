@@ -1,7 +1,7 @@
 "use strict;"
 // Declaring global variables for elements that are targeted more than once
 const $createMovieForm = $('.create-movie-form');
-const $movieInfo = $('#movie-info');
+const $singleMovieInfo = $('#single-movie-modal');
 const $overlay = $('.overlay');
 const $editMovieSection = $('.edit-movie-section');
 
@@ -18,7 +18,7 @@ const $editRuntime = $('#editRuntime');
 const $editActors = $('#editActors');
 
 // Creates main html for page
-const creatingHtml = function (imgSrc, title, id) {
+const createMovieCardHtml = (imgSrc, title, id) => {
     //language=HTML
     return `
         <div id="movie" class="movie-container">
@@ -30,7 +30,7 @@ const creatingHtml = function (imgSrc, title, id) {
 }
 
 // Configures IMDB Rating
-const setIMDBRating = function (imdbRating) {
+const setIMDBRating = (imdbRating) => {
     if (imdbRating === "N/A") {
         return 'NR'
     } else {
@@ -39,7 +39,7 @@ const setIMDBRating = function (imdbRating) {
 }
 
 // Creates the html for modal after image is clicked
-const singleMovieModal = function (actors, date, director, genre, imdb, plot, poster, rating, runtime, title, year, id) {
+const populateMovieInfoModalHtml = (actors, date, director, genre, imdb, plot, poster, rating, runtime, title, year, id) => {
     //language=HTML
     return `
         <div id="movie-info-insert" data-id="${id}">
@@ -59,7 +59,7 @@ const singleMovieModal = function (actors, date, director, genre, imdb, plot, po
             </div>`
 }
 
-const someFun = (movie) => {
+const populateSingleMovieInfo = (movie) => {
     const ACTORS = movie.actors;
     const DATE_RELEASED = movie.dateReleased;
     const DIRECTOR = movie.director;
@@ -73,23 +73,23 @@ const someFun = (movie) => {
     const YEAR = movie.yearMade;
     const ID = movie.id;
 
-    $('#movie-info')
-        .html(singleMovieModal(ACTORS, DATE_RELEASED, DIRECTOR, GENRE, IMDB_RATING, PLOT, POSTER, MOVIE_RATING, RUNTIME, TITLE, YEAR, ID))
+    $singleMovieInfo
+        .html(populateMovieInfoModalHtml(ACTORS, DATE_RELEASED, DIRECTOR, GENRE, IMDB_RATING, PLOT, POSTER, MOVIE_RATING, RUNTIME, TITLE, YEAR, ID))
         .removeClass('hidden')
     $overlay.removeClass('hidden')
-    editFormFill(movie)
+    populateEditForm(movie)
 }
 
 // Closes all modals
-const closeModal = function () {
+const closeAllModals = _ => {
     $createMovieForm.addClass('hidden');
-    $movieInfo.addClass('hidden');
+    $singleMovieInfo.addClass('hidden');
     $editMovieSection.addClass('hidden');
     $overlay.addClass('hidden');
 }
 
 // Sets the values for the edit modal
-const editFormFill = function (movie) {
+const populateEditForm = (movie) =>{
     $editTitle.val(movie.title);
     $editDirector.val(movie.director);
     $editPoster.val(movie.poster);
@@ -103,29 +103,8 @@ const editFormFill = function (movie) {
     $editActors.val(movie.actors);
 }
 
-// Pass in the edited values to update the database when clicked
-const editMovie = function (event) {
-    event.preventDefault();
-    const movieID = $('#movie-info-insert').attr('data-id');
-    editRequest(movieID, getEditData());
-    $editMovieSection.addClass('hidden');
-    $overlay.addClass('hidden')
-}
-
-// Checks to see which link is clicked on the single movie info modal
-// calls either the edit or delete functions based on the target
-const editOrDelete = function (e) {
-    e.preventDefault();
-    if (e.target.getAttribute('id') === 'edit') {
-        $editMovieSection.removeClass('hidden');
-        $movieInfo.addClass('hidden');
-    }
-    if (e.target.getAttribute('id') === 'delete') {
-        deleteMovie($('#movie-info').children().attr('data-id'));
-    }
-}
 // Returns the values to patch the movie
-const getEditData = function (){
+const getEditData = _ => {
     return {
         title: $editTitle.val(),
         director: $editDirector.val(),
@@ -141,8 +120,30 @@ const getEditData = function (){
     }
 }
 
+// Pass in the edited values to update the database when clicked
+const editMovie = (event) => {
+    event.preventDefault();
+    const movieID = $('#movie-info-insert').attr('data-id');
+    editRequest(movieID, getEditData());
+    $editMovieSection.addClass('hidden');
+    $overlay.addClass('hidden')
+}
+
+// Checks to see which link is clicked on the single movie info modal
+// calls either the edit or delete functions based on the target
+const editOrDelete = (event) => {
+    event.preventDefault();
+    if (event.target.getAttribute('id') === 'edit') {
+        $editMovieSection.removeClass('hidden');
+        $singleMovieInfo.addClass('hidden');
+    }
+    if (event.target.getAttribute('id') === 'delete') {
+        deleteMovie($singleMovieInfo.children().attr('data-id'));
+    }
+}
+
 // Custom sort and filter for the movies results
-const customSort = function(movieData, sortBy) {
+const customSort = (movieData, sortBy) => {
     if (sortBy === 'Title'){
         return movieData.sort((prevMovie, currMovie) => prevMovie.title.localeCompare(currMovie.title));
     } else if (sortBy === "Rating"){

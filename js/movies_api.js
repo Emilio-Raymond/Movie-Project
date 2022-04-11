@@ -5,11 +5,9 @@ const BASE = 'http://localhost:8080/movies'
 const getAllMovies = function (sortBy = 'Title') {
     fetch(BASE)
         .then(results => results.json())
-        .then(function (movies) {
-            console.log(movies);
-
+        .then((movies) => {
             // Clears the current movie list
-            $(`#movie-insert`).html('');
+            $(`#movies-container`).html('');
 
             // Uses the return of customSort and loop through the results to post the html
             customSort(movies, sortBy).forEach(function (movie) {
@@ -18,31 +16,31 @@ const getAllMovies = function (sortBy = 'Title') {
                     deleteMovie(movie.id);
                     getAllMovies();
                 }
-                const HTML = creatingHtml(movie.poster, movie.title, movie.id);
-                $(`#movie-insert`).append(HTML);
+                const HTML = createMovieCardHtml(movie.poster, movie.title, movie.id);
+                $(`#movies-container`).append(HTML);
             })
         })
 }
 getAllMovies()
 
 // Gets data for one movie based on the id passed in
-const getSelectedMovie = function (id) {
-    fetch(`${BASE}/${id}`)
+const getSelectedMovie = (id) => {
+   return fetch(`${BASE}/${id}`)
         .then(results => results.json())
         .then(movie => {
-            someFun(movie)
+            return movie
         })
 }
 
 // Adds the movie to the database
-const addMovie = function (newMovie) {
+const addMovieRequest = (newMovie) => {
     fetch(BASE, {
         method: 'POST',
         body: JSON.stringify(newMovie)
     })
         .then(results => results.json())
         .then(movie => {
-            if (movie === "Duplicate entry 'Cars' for key 'title'") {
+            if (movie.toString().startsWith("Duplicate")) {
                 alert('This title already exists')
             } else {
                 getAllMovies(movie)
@@ -50,8 +48,8 @@ const addMovie = function (newMovie) {
         })
 }
 
-// Calls the addMovie function based on the results of the title being added
-const getMovieData = function (title) {
+// Calls the addMovieRequest function based on the results of the title being added
+const getMovieData = (title) => {
     let structuredTitle = title.split(' ').join('+')
     $.get(`http://www.omdbapi.com/?apikey=${OMBD_KEY}&t=${structuredTitle}`, function (movie, _, jqXHR) {
         const {Error} = jqXHR.responseJSON
@@ -73,7 +71,7 @@ const getMovieData = function (title) {
             runtime: movie.Runtime,
             actors: movie.Actors,
         }]
-        addMovie(newMovie)
+        addMovieRequest(newMovie)
         $createMovieForm.addClass('hidden');
         $overlay.addClass('hidden')
         $('#title').val('')
@@ -81,24 +79,23 @@ const getMovieData = function (title) {
 }
 
 //Deletes movie from database
-const deleteMovie = function (id) {
+const deleteMovie = (id) => {
     fetch(`${BASE}/${id}`, {
         method: 'DELETE',
     })
         .then(_ => {
             getAllMovies()
-            closeModal()
+            closeAllModals()
         })
 }
 
 // Edits the current movie passed in by id and movie data
-const editRequest = function (id, editedData) {
-    console.log(editedData)
+const editRequest = (id, editedData) => {
     fetch(`${BASE}/${id}`, {
         method: 'PUT',
         body: JSON.stringify(editedData),
     })
         .then(results => results.json())
-        .then(results => getAllMovies('Title'))
+        .then(_ => getAllMovies('Title'))
 }
 
