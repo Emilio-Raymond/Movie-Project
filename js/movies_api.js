@@ -5,8 +5,6 @@ const BASE = 'https://windy-brawny-lumber.glitch.me/movies'
 const getAllMovies = function (sortBy = 'Title') {
     $.get(BASE, function () {
     }).done(function (movies) {
-        console.log(movies);
-
         // Clears the current movie list
         $(`#movie-insert`).html('');
 
@@ -49,7 +47,9 @@ const getSelectedMovie = function (id) {
 
 // Adds the movie to the database
 const addMovie = function (newMovie) {
-    $.post(BASE, newMovie).done(getAllMovies)
+    $.post(BASE, newMovie).done(function (){
+        getAllMovies('Title')
+    })
 }
 
 // Calls the addMovie function based on the results of the title being added
@@ -61,8 +61,8 @@ const getMovieData = function (title) {
             alert("Movie not found. Please enter a correct title.");
             return;
         }
-        console.log(movie)
-
+        console.table(movie)
+        console.table(movie.rating)
         const newMovie = {
             title: movie.Title,
             director: movie.Director,
