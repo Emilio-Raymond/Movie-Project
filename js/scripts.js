@@ -1,4 +1,4 @@
-"use strict;"
+"use strict"
 // Declaring global variables for elements that are targeted more than once
 const $createMovieForm = $('.create-movie-form');
 const $singleMovieInfo = $('#single-movie-modal');

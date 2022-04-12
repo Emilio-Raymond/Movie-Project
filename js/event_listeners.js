@@ -1,4 +1,4 @@
-
+"use strict"
 // When clicked, generates data for selected movie
 // Scrolls to the top of the page
 $('#movies-container').click(function (event) {

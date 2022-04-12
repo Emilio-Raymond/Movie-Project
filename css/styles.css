@@ -73,7 +73,7 @@ a:hover {
 }
 
 .movie-container p {
-    font-family: glass, sans-serif;
+    font-family: blackWidow, sans-serif;
     min-height: 48px;
     display: flex;
     align-items: center;
@@ -228,4 +228,3 @@ h1 {
     backdrop-filter: blur(3px);
     z-index: 5;
 }
-
