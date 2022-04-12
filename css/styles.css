@@ -73,7 +73,7 @@ a:hover {
 }
 
 .movie-container p {
-    font-family: blackWidow, sans-serif;
+    font-family: glass, sans-serif;
     min-height: 48px;
     display: flex;
     align-items: center;
@@ -120,7 +120,7 @@ a:hover {
 }
 
 /*Individual Movie Information Panel Styles*/
-#movie-info {
+#single-movie-modal {
     background-color: rgba(96, 155, 217, 0.8);
     position: absolute;
     top: 120px;
