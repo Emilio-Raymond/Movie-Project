@@ -1,11 +1,11 @@
 @font-face {
     font-family: "blackWidow";
-    src: url("/css/fonts/blackWidow/widow.ttf");
+    src: url("/profile/css/fonts/blackWidow/widow.ttf");
 }
 
 @font-face {
     font-family: "glass";
-    src: url("/css/fonts/glass/glass.ttf");
+    src: url("/profile/css/fonts/glass/glass.ttf");
 }
 
 * {
