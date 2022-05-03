@@ -18,8 +18,8 @@
     <nav>
         <p>Pick Sick Flicks</p>
         <p><a href="" id="add-movie-modal">Add A New Movie</a></p>
-<!--        <label for="search">Search Movie:</label>-->
-<!--        <input type="text" name="search" id="search" placeholder="Search">-->
+        <!--        <label for="search">Search Movie:</label>-->
+        <!--        <input type="text" name="search" id="search" placeholder="Search">-->
         <label for="sort">Sort by: </label>
         <select name="sort" id="sort">
             <option value="Title">Title</option>
@@ -44,11 +44,11 @@
 
 <main>
     <!--    Main Movie List-->
-    <section class="container" id="movie-insert">
+    <section class="container" id="movies-container">
         <h1>Get Your POPCORN READY!</h1>
     </section>
     <!--Single Movie Information Modal-->
-    <section id="movie-info" class="hidden"></section>
+    <section id="single-movie-modal" class="hidden"></section>
     <!--    Create A New Movie Form Modal-->
     <section class="create-movie-form hidden">
         <button id="close-form">x</button>
@@ -56,7 +56,7 @@
         <form>
             <label for="title"></label>
             <input type="text" placeholder="Title" name="title" id="title" required>
-            <button id="createMovie">Create my movie</button>
+            <button id="createMovieBtn">Create my movie</button>
         </form>
     </section>
 
@@ -64,13 +64,40 @@
     <section class="edit-movie-section hidden">
         <button id="close-edit-form">x</button>
         <h1>Edit Movie</h1>
-        <form>
+        <form id="edit-form">
             <label for="editTitle"></label>
-            <input type="text" placeholder="Title" name="title" id="editTitle">
-            <label for="editYear"></label>
-            <input type="text" placeholder="Year" name="year" id="editYear">
+            <input type="text" placeholder="Title" name="editTitle" id="editTitle">
+
+            <label for="editDirector"></label>
+            <input type="text" placeholder="Director" name="editDirector" id="editDirector">
+
+            <label for="editPoster"></label>
+            <input type="text" placeholder="Poster" name="editPoster" id="editPoster">
+
+            <label for="editDateReleased"></label>
+            <input type="text" placeholder="Date Released" name="editDateReleased" id="editDateReleased">
+
+            <label for="editYearMade"></label>
+            <input type="text" placeholder="Year Made" name="yearMade" id="editYearMade">
+
             <label for="editGenre"></label>
             <input type="text" placeholder="Genre" name="genre" id="editGenre">
+
+            <label for="editPlot"></label>
+            <input type="text" placeholder="Plot" name="editPlot" id="editPlot">
+
+            <label for="editRating"></label>
+            <input type="text" placeholder="Rating" name="editRating" id="editRating">
+
+            <label for="editImdb"></label>
+            <input type="text" placeholder="IMDB" name="editImdb" id="editImdb">
+
+            <label for="editRuntime"></label>
+            <input type="text" placeholder="Runtime" name="editRuntime" id="editRuntime">
+
+            <label for="editActors"></label>
+            <input type="text" placeholder="Actors" name="editActors" id="editActors">
+
             <button id="editMovie">Edit my movie</button>
         </form>
     </section>

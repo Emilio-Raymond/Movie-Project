@@ -1,61 +1,55 @@
 'use strict';
-const BASE = 'https://windy-brawny-lumber.glitch.me/movies'
+const BASE = 'http://localhost:8080/movies'
 
 // Gets an array of objects from the server
 const getAllMovies = function (sortBy = 'Title') {
-    $.get(BASE, function () {
-    }).done(function (movies) {
-        console.log(movies);
+    fetch(BASE)
+        .then(results => results.json())
+        .then((movies) => {
+            // Clears the current movie list
+            $(`#movies-container`).html('');
 
-        // Clears the current movie list
-        $(`#movie-insert`).html('');
-
-        // Uses the return of customSort and loop through the results to post the html
-        customSort(movies, sortBy).forEach(function (movie) {
-            // If the movie title is undefined, delete the movie
-            if (movie.title === undefined || movie.title === "") {
-                deleteMovie(movie.id);
-                getAllMovies();
-            }
-            const HTML = creatingHtml(movie.poster, movie.title, movie.id);
-            $(`#movie-insert`).append(HTML);
+            // Uses the return of customSort and loop through the results to post the html
+            customSort(movies, sortBy).forEach(function (movie) {
+                // If the movie title is undefined, delete the movie
+                if (movie.title === undefined || movie.title === "") {
+                    deleteMovie(movie.id);
+                    getAllMovies();
+                }
+                const HTML = createMovieCardHtml(movie.poster, movie.title, movie.id);
+                $(`#movies-container`).append(HTML);
+            })
         })
-    })
 }
 getAllMovies()
 
 // Gets data for one movie based on the id passed in
-const getSelectedMovie = function (id) {
-    $.get(`${BASE}/${id}`).done((results) => {
-        const ACTORS = results.actors;
-        const DATE_RELEASED = results.dateReleased;
-        const DIRECTOR = results.director;
-        const GENRE = results.genre;
-        const IMDB_RATING = results.imdb;
-        const PLOT = results.plot;
-        const POSTER = results.poster;
-        const MOVIE_RATING = results.rating;
-        const RUNTIME = results.runtime;
-        const TITLE = results.title;
-        const YEAR = results.year;
-        const ID = results.id;
-
-        $('#movie-info')
-            .html(singleMovieModal(ACTORS, DATE_RELEASED, DIRECTOR, GENRE, IMDB_RATING, PLOT, POSTER, MOVIE_RATING, RUNTIME, TITLE, YEAR, ID))
-            .removeClass('hidden')
-        $overlay.removeClass('hidden')
-    })
+const getSelectedMovie = (id) => {
+    return fetch(`${BASE}/${id}`)
+        .then(results => results.json())
+        .then(movie => {
+            return movie
+        })
 }
 
 // Adds the movie to the database
-const addMovie = function (newMovie) {
-    $.post(BASE, newMovie).done(function (){
-        getAllMovies('Title')
+const addMovieRequest = (newMovie) => {
+    fetch(BASE, {
+        method: 'POST',
+        body: JSON.stringify(newMovie)
     })
+        .then(results => results.json())
+        .then(movie => {
+            if (movie.toString().startsWith("Duplicate")) {
+                alert('This title already exists')
+            } else {
+                getAllMovies(movie)
+            }
+        })
 }
 
-// Calls the addMovie function based on the results of the title being added
-const getMovieData = function (title) {
+// Calls the addMovieRequest function based on the results of the title being added
+const getMovieData = (title) => {
     let structuredTitle = title.split(' ').join('+')
     $.get(`http://www.omdbapi.com/?apikey=${OMBD_KEY}&t=${structuredTitle}`, function (movie, _, jqXHR) {
         const {Error} = jqXHR.responseJSON
@@ -63,22 +57,21 @@ const getMovieData = function (title) {
             alert("Movie not found. Please enter a correct title.");
             return;
         }
-        console.log(movie)
 
-        const newMovie = {
+        const newMovie = [{
             title: movie.Title,
             director: movie.Director,
             poster: movie.Poster,
             dateReleased: movie.Released,
+            yearMade: movie.Year,
             genre: movie.Genre,
             plot: movie.Plot,
             rating: movie.Rated,
             imdb: movie.imdbRating,
             runtime: movie.Runtime,
             actors: movie.Actors,
-            year: movie.Year,
-        }
-        addMovie(newMovie);
+        }]
+        addMovieRequest(newMovie)
         $createMovieForm.addClass('hidden');
         $overlay.addClass('hidden')
         $('#title').val('')
@@ -86,19 +79,22 @@ const getMovieData = function (title) {
 }
 
 //Deletes movie from database
-const deleteMovie = function (id) {
-    $.ajax({url: `${BASE}/${id}`, type: 'DELETE',}).done( _ => {
-        getAllMovies()
-        closeModal()
+const deleteMovie = (id) => {
+    fetch(`${BASE}/${id}`, {
+        method: 'DELETE',
     })
+        .then(_ => {
+            getAllMovies()
+            closeAllModals()
+        })
 }
 
 // Edits the current movie passed in by id and movie data
-const editRequest = function (id, editedData) {
-    $.ajax({
-        url: `${BASE}/${id}`,
-        type: 'PATCh',
-        data: editedData,
-    }).done(getAllMovies)
+const editRequest = (id, editedData) => {
+    fetch(`${BASE}/${id}`, {
+        method: 'PUT',
+        body: JSON.stringify(editedData),
+    })
+        .then(results => results.json())
+        .then(_ => getAllMovies('Title'))
 }
-
